@@ -6,13 +6,14 @@ import resolvers from "./resolvers/index";
 import jwt from 'jsonwebtoken';
 
 
-const port = process.env.PORT || 4000;
-
 function verifyToken(token: string) {
     return jwt.verify(token, process.env.JWT_SECRET as string);
 }
 
 async function main() {
+    const port = process.env.PORT || 4000;
+    console.log(`Attempting to start server on port ${port}`);
+    
     const server = new ApolloServer({
         typeDefs: await typeDefs,
         resolvers: await resolvers,
