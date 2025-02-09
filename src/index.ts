@@ -6,6 +6,8 @@ import resolvers from "./resolvers/index";
 import jwt from 'jsonwebtoken';
 
 
+const port = process.env.PORT || 4000;
+
 function verifyToken(token: string) {
     return jwt.verify(token, process.env.JWT_SECRET as string);
 }
@@ -23,13 +25,13 @@ async function main() {
     });
 
     const { url } = await startStandaloneServer(server, {
-        listen: { port: 4000 },
+        listen: { port: parseInt(port.toString()) },
         context: async ({ req }) => {
             // const token = req.headers.authorization || '';
             const token = req.headers.authorization?.split('Bearer ')[1];
             
             if (!token) {
-                throw new Error('Authorization token is required');
+                return { user: null };
             }
 
             try {
@@ -42,7 +44,6 @@ async function main() {
                         }
                     };
                 }
-                return { user: null };
             } catch (error) {
                 return { user: null };
             }

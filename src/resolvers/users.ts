@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 
 
 const SALT_ROUNDS = 12;
-const JWT_SECRET = process.env.JWT_SECRET as string
+const JWT_SECRET = process.env.JWT_SECRET as string || 'ODBiZTkzMmQtZDc1NC00YzNlLTgzZTUtYzViNjNkNDA0OWYy'; // Should be in env
 const TOKEN_EXPIRY = '10m';
 
 async function hashPassword(password: string): Promise<string> {
