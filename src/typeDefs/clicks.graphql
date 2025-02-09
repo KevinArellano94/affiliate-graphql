@@ -1,0 +1,28 @@
+scalar DateTime
+scalar JSON
+
+type Click {
+    id: ID
+    linkId: ID
+    ipAddress: String
+    userAgent: JSON
+    clickedAt: DateTime
+    geoData: JSON
+}
+
+input ClickInput {
+    linkId: ID!
+    ipAddress: String!
+    userAgent: JSON
+    clickedAt: DateTime
+    geoData: JSON
+}
+
+type Query {
+    clicks: [Click]
+    click(linkId: ID): [Click]
+}
+
+type Mutation {
+    addClick(input: ClickInput!): [Click]
+}

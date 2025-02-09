@@ -1,0 +1,26 @@
+scalar DateTime
+scalar JSON
+
+type Performance {
+    linkId: ID
+    userId: ID
+    platform: String
+    totalClicks: Int
+    totalConversions: Int
+    totalRevenue: Float
+    totalCommission: Float
+}
+
+type PerformanceRefresh {
+    success: Boolean
+    refreshedAt: DateTime
+}
+
+type Query {
+    performances: [Performance]
+    performance(userId: ID linkId: ID, platform: String): [Performance]
+}
+
+type Mutation {
+    refreshPerformance: PerformanceRefresh
+}

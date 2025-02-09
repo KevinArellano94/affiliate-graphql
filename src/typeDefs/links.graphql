@@ -1,0 +1,34 @@
+scalar DateTime
+scalar JSON
+
+type Link {
+    id: ID
+    userId: ID
+    urlSlug: String
+    targetUrl: String
+    platform: String
+    metadata: JSON
+    isActive: Boolean
+    createdAt: DateTime
+    expiresAt: DateTime
+}
+
+input LinkInput {
+    userId: ID!
+    urlSlug: String
+    targetUrl: String
+    platform: String
+    metadata: JSON
+    isActive: Boolean
+    createdAt: DateTime
+    expiresAt: DateTime
+}
+
+type Query {
+    links: [Link]
+    link(userId: ID!): [Link]
+}
+
+type Mutation {
+    addLink(input: LinkInput): [Link]
+}

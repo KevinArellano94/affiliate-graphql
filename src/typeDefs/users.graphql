@@ -1,0 +1,35 @@
+scalar DateTime
+
+type User {
+    id: ID
+    email: String
+    hashedPassword: String
+    fullName: String
+    contactInfo: JSON
+    taxInfo: JSON
+    bankingInfo: JSON
+    twoFactorSettings: JSON
+    createdAt: DateTime
+    updatedAt: DateTime
+    isActive: Boolean
+    token: String
+}
+
+input UserInput {
+    email: String!
+    password: String!
+    fullName: String!
+    contactInfo: JSON
+    taxInfo: JSON
+    bankingInfo: JSON
+    twoFactorSettings: JSON
+}
+
+type Query {
+    users: [User]
+    user(email: String!, password: String!): [User]
+}
+
+type Mutation {
+    addUser(input: UserInput!): [User]
+}

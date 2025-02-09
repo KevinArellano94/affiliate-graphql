@@ -1,0 +1,30 @@
+scalar DateTime
+scalar JSON
+
+type Transaction {
+    id: ID
+    userId: ID
+    conversionId: ID
+    amount: Float
+    transactionType: String
+    status: String
+    createdAt: DateTime
+}
+
+input TransactionInput {
+    userId: ID
+    conversionId: ID
+    amount: Float
+    transactionType: String
+    status: String
+    createdAt: DateTime
+}
+
+type Query {
+    transactions: [Transaction]
+    transaction(userId: ID): [Transaction]
+}
+
+type Mutation {
+    addTransaction(input: TransactionInput): [Transaction]
+}

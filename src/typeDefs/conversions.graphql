@@ -1,0 +1,28 @@
+scalar DateTime
+scalar JSON
+
+type Conversion {
+    id: ID
+    linkId: ID
+    amount: Float
+    status: String
+    transactionData: JSON
+    convertedAt: DateTime
+}
+
+input ConversionInput {
+    linkId: ID
+    amount: Float
+    status: String
+    transactionData: JSON
+    convertedAt: DateTime
+}
+
+type Query {
+    conversions: [Conversion]
+    conversion(linkId: ID): [Conversion]
+}
+
+type Mutation {
+    addConversion(input: ConversionInput): [Conversion]
+}

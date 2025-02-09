@@ -1,0 +1,28 @@
+scalar DateTime
+scalar JSON
+
+type Withdrawal {
+    id: ID
+    transactionId: ID
+    amount: Float
+    status: String
+    requestedAt: DateTime
+    processedAt: DateTime
+}
+
+input WithdrawalInput {
+    transactionId: ID
+    amount: Float
+    status: String
+    requestedAt: DateTime
+    processedAt: DateTime
+}
+
+type Query {
+    withdrawals: [Withdrawal]
+    withdrawal(transactionId: ID, status: String): [Withdrawal]
+}
+
+type Mutation {
+    addWithdrawal(input: WithdrawalInput): [Withdrawal]
+}
