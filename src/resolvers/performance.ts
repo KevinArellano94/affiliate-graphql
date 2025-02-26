@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
-import drizzleConnection from "../connection/drizzle";
-import performance from '../models/performance';
+import drizzleConnection from "../connection/drizzle.ts";
+import performance from '../models/performance.ts';
 const db = drizzleConnection();
 import { sql, eq, ne, gt, gte, like, ilike, asc, desc, count, and } from "drizzle-orm";
 

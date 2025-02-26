@@ -1,8 +1,8 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
-import typeDefs from "./typeDefs/index";
-import resolvers from "./resolvers/index";
+import typeDefs from "./typeDefs/index.ts";
+import resolvers from "./resolvers/index.ts";
 import jwt from 'jsonwebtoken';
 
 

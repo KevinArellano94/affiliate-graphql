@@ -24,11 +24,18 @@ input LinkInput {
     expiresAt: DateTime
 }
 
+input RewardfulLinkInput {
+    userId: ID!
+    token: String
+}
+
 type Query {
     links: [Link]
     link(userId: ID!): [Link]
+    rewardfulLink(userID: ID!): JSON
 }
 
 type Mutation {
     addLink(input: LinkInput): [Link]
+    addRewardfulLink(input: RewardfulLinkInput): JSON
 }

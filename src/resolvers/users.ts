@@ -1,6 +1,6 @@
 import { GraphQLError } from 'graphql';
-import drizzleConnection from "../connection/drizzle";
-import users from "../models/users";
+import drizzleConnection from "../connection/drizzle.ts";
+import users from "../models/users.ts";
 const db = drizzleConnection();
 import { sql, eq, ne, gt, gte, like, ilike, asc, desc, count, and } from "drizzle-orm";
 import bcrypt from 'bcrypt';
@@ -83,6 +83,51 @@ export const Mutation = {
         } catch (error: any) {
             console.error("Error adding user:", error.message);
             throw new GraphQLError("Error adding user", {
+                extensions: { code: "INTERNAL_ERROR" }
+            });
+        }
+    },
+    updateUser: async (_: any, { input }: any, ___: any, info: any) => {
+        const updatePayload: any = {};
+
+        if (!input.id) {
+            console.error("Error finding user, please include an ID");
+            throw new GraphQLError("Error finding user, please include an ID", {
+                extensions: { code: "INTERNAL_ERROR" }
+            });
+        }
+
+        if (input.password) {
+            updatePayload.hashedPassword = await hashPassword(input.password);
+        }
+        
+        if (input.fullName) {
+            updatePayload.fullName = input.fullName;
+        }
+
+        if (input.contactInfo) {
+            updatePayload.contactInfo = input.contactInfo;
+        }
+
+        if (input.taxInfo) {
+            updatePayload.taxInfo = input.taxInfo;
+        }
+
+        if (input.bankingInfo) {
+            updatePayload.bankingInfo = input.bankingInfo;
+        }
+        
+        try {
+            const result = await db
+                .update(users)
+                .set(updatePayload)
+                .where(eq(users.id, input.id))
+                .returning();
+            
+            return [result[0]];
+        } catch (error: any) {
+            console.error("Error updating user:", error.message);
+            throw new GraphQLError("Error updating user", {
                 extensions: { code: "INTERNAL_ERROR" }
             });
         }
